@@ -1,6 +1,6 @@
 # Controle Financeiro - Aplicação Java com Spring Boot
 
-Esta aplicação de controle financeiro foi desenvolvida utilizando Java com Spring Boot. Permite aos usuários gerenciarem suas receitas e despesas de forma simples e eficiente.
+Esta aplicação de controle financeiro foi desenvolvida utilizando Java com Spring Boot. Com ela os usuários podem adicionar e remover receitas e despesas de forma fácil e intuitiva.
 
 ## Requisitos
 
