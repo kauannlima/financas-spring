@@ -1,0 +1,183 @@
+@import url('https://unpkg.com/css.gg@2.0.0/icons/css/arrow-down-o.css');
+@import url('https://unpkg.com/css.gg@2.0.0/icons/css/arrow-up-o.css');
+@import url('https://unpkg.com/css.gg@2.0.0/icons/css/trash.css');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Montserrat;
+}
+
+body {
+    background-color: #f4f4f4;
+}
+
+header {
+    padding: 3em 2em;
+    background-color: #0D47A1; 
+    color: #FFFFFF;
+}
+
+header h1 {
+    text-align: center;
+}
+
+.titleAndIcon {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+
+.titleAndIcon p, .titleAndIcon i {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.titleAndIcon p {
+    color: #3C4043;
+}
+
+article {
+    width: 230px;
+    background-color: white;
+    padding: 25px 20px;
+    border-radius: 10px;
+}
+
+.sectionValores {
+    width: 700px;
+    margin: 1em auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+#sectionGetters, #sectionAdicionarMovimento {
+    align-items: center;
+    border-radius: 10px;
+}
+
+input, select {
+    height: 40px;
+    border-radius: 10px;
+    border: 2px #BDC1C6 solid;
+}
+
+input {
+    width: 200px;
+    padding: 15px 20px;
+}
+
+#sectionAdicionarMovimento button {
+    margin-bottom: auto;
+    height: 60px;
+    margin: auto 0;
+    width: 150px;
+    border-radius: 10px;
+    border: 2px #3C4043 solid;
+    color: white;
+    background-color: #0D47A1;
+}
+
+input:hover, select:hover {
+    border: 2px black solid;
+}
+
+.formLabel {
+    display: flex;
+    flex-direction: column;
+}
+
+.titulos, #formAdicionarMovimento {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    width: 700px;
+    margin: 0 auto;
+    padding: 15px;
+    font-weight: 600;
+}
+
+#formAdicionarMovimento {
+    display: flex;
+    margin-bottom: 50px;
+    padding: 25px 15px;
+    border-radius: 10px;
+}
+
+.titulos {
+    border-bottom: 2px solid #BDC1C6;
+    border-radius: 10px;
+}
+
+.titulos span {
+    color: black;
+}
+
+.itens {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    align-items: center;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin: 0 auto;
+    width: 700px;
+    border-bottom: 1px solid #BDC1C6;
+}
+
+span {
+    font-size: 16px;
+    align-items: center;
+    width: 10px;
+    color: #3C4043;
+}
+
+.gg-arrow-down-o {
+    color: red;
+}
+
+.gg-arrow-up-o {
+    color: green;
+}
+
+.gg-trash {
+    color: black;
+    width: 10px;
+}
+
+.gg-trash:hover {
+    filter: brightness(1.5);
+    cursor: pointer;
+}
+
+.spanDescricao {
+    width: 25%;
+}
+
+.spanValor {
+    width: 15%;
+}
+
+.spanTipo {
+    width: 22px;
+    text-align: center;
+}
+
+@media (min-width: 1200px) {
+
+    .titulos, #formAdicionarMovimento, .sectionValores, .itens {
+   
+        width: 1000px;
+    }
+
+    article {
+        width: 300px;
+
+    }
+
+    input {
+        width: 300px;
+    }
+}

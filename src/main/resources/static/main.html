@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styleMain.css">
+    <title>Página Principal</title>
+</head>
+<body>
+
+    <header>
+        <h1>Seja Bem-vindo ao Finanças Spring</h1>
+    </header>
+
+    <section class="sectionValores">
+
+        <article id="receitasTotal">
+            <div class="titleAndIcon">
+                <p>Total de Receitas</p><i class="gg-arrow-up-o"></i>
+            </div>
+            <h1 id="receitas"></h1>
+        </article>
+
+        <article id="despesasTotal">
+            <div class="titleAndIcon">
+                <p>Total de Despesas</p><i class="gg-arrow-down-o"></i>
+            </div>
+            <h1 id="despesas"></h1>
+        </article>
+
+        <article id="saldoTotal">
+            <div class="titleAndIcon">
+                <p>Saldo do Usuário</p><i class="gg-dollar"></i>
+            </div>
+            <h1 id="saldo"></h1>
+        </article>
+    </section>
+
+    <main>
+
+        <section id="sectionAdicionarMovimento">
+            <form id="formAdicionarMovimento">
+        
+                <div class="formLabel">
+                    <label for="descricaoMovimento">Descrição:</label>
+                    <input type="text" id="descricaoMovimento" placeholder="Informe a descrição" required>
+                </div>
+  
+                <div class="formLabel">
+                    <label for="valorMovimento">Valor:</label>
+                    <input type="number" id="valorMovimento" placeholder="Informe o valor" min="0.1" step="0.01" required>
+                </div>
+                  
+                <div class="formLabel">
+                    <label for="tipoMovimento">Tipo:</label>
+                    <select id="tipoMovimento">
+                        <option value="receita">Receita</option>
+                        <option value="despesa">Despesa</option>
+                    </select>
+                </div>
+
+                <button id="adicionarMovimento" type="submit">Adicionar</button>
+            </form>
+        </section>
+
+        <section id="sectionGetters">
+            <div class="titulos">
+                <span class="spanDescricao">Descrição</span>
+                <span class="spanValor">Valor</span>
+                <span class="spanTipo">Tipo</span>
+                <span></span>
+            </div>
+            <div id="listaReceitas"></div>
+            <div id="listaDespesas"></div>
+        </section>
+
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
