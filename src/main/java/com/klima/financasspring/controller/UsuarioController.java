@@ -1,5 +1,6 @@
 package com.klima.financasspring.controller;
 
+import com.klima.financasspring.domain.Despesa;
 import com.klima.financasspring.domain.Receita;
 import com.klima.financasspring.domain.Usuario;
 import com.klima.financasspring.dto.UsuarioDetailDTO;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -44,22 +46,32 @@ public class UsuarioController {
     public ResponseEntity<?> fazerLogin(@RequestBody UsuarioLoginDTO loginRequest) {
         try {
             Usuario usuario = usuarioService.fazerLogin(loginRequest.email(), loginRequest.senha());
-            return ResponseEntity.ok("Login bem-sucedido!");
+            UsuarioIdDTO usuarioIdDTO = new UsuarioIdDTO(usuario.getId());
+            return ResponseEntity.ok(usuarioIdDTO);
               } catch (EmailNaoEncontradoException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Email não encontrado.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Email não encontrado");
         } catch (SenhaIncorretaException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Senha incorreta.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Senha incorreta");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ocorreu um erro ao fazer login.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ocorreu um erro ao fazer login");
         }
     }
 
-
-
+    @GetMapping("/{usuarioId}/saldo")
+    public ResponseEntity<BigDecimal> getSaldoByUsuarioId(@PathVariable Long usuarioId) {
+    BigDecimal saldo = usuarioService.getSaldoByUsuarioId(usuarioId);
+    return ResponseEntity.ok(saldo);
+}
 
     @GetMapping("/{usuarioId}/receitas")
     public ResponseEntity<List<Receita>> getReceitasByUsuarioId(@PathVariable Long usuarioId) {
         List<Receita> receitas = usuarioService.findReceitasByUsuarioId(usuarioId);
         return ResponseEntity.ok(receitas);
+    }
+
+    @GetMapping("/{usuarioId}/despesas")
+    public ResponseEntity<List<Despesa>> getDespesasByUsuarioId(@PathVariable Long usuarioId) {
+        List<Despesa> despesas = usuarioService.findDespesasByUsuarioId(usuarioId);
+        return ResponseEntity.ok(despesas);
     }
 }

@@ -1,5 +1,6 @@
 package com.klima.financasspring.repository;
 
+import com.klima.financasspring.domain.Despesa;
 import com.klima.financasspring.domain.Receita;
 import com.klima.financasspring.domain.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,4 +18,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     List<Receita> findReceitasByUsuarioId(Long userId);
 
     Usuario findByEmail(String email);
+
+    @Query("SELECT d FROM Despesa d WHERE d.usuario.id = :userId")
+    List<Despesa> findDespesasByUsuarioId(Long userId);
 }

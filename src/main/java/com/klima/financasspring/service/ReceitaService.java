@@ -3,6 +3,7 @@ package com.klima.financasspring.service;
 import com.klima.financasspring.domain.Receita;
 import com.klima.financasspring.domain.Usuario;
 import com.klima.financasspring.dto.UsuarioLoginDTO;
+import com.klima.financasspring.exception.ReceitaNaoEncontradaException;
 import com.klima.financasspring.exception.UsuarioNaoEncontradoException;
 import com.klima.financasspring.repository.ReceitaRepository;
 import com.klima.financasspring.repository.UsuarioRepository;
@@ -40,10 +41,66 @@ public class ReceitaService {
             BigDecimal novoSaldo = usuario.getSaldo().add(receita.getValor());
             usuario.setSaldo(novoSaldo);
 
-            // Salvar o usuário atualizado de volta no banco de dados
             usuarioRepository.save(usuario);
         } else {
             throw new UsuarioNaoEncontradoException("Usuário não encontrado com o ID fornecido: " + usuarioId);
         }
     }
+
+
+    public void atualizarReceita(Long usuarioId, Long receitaId, Receita receitaAtualizada) {
+
+        Receita receitaExistente = receitaRepository.findByIdAndUsuarioId(receitaId, usuarioId);
+if(receitaExistente != null){
+
+    Usuario usuario = receitaExistente.getUsuario();
+    BigDecimal valorReceita = receitaExistente.getValor();
+
+    String descricaoAtualizada = receitaAtualizada.getDescricao();
+    BigDecimal valorAtualizado = receitaAtualizada.getValor();
+
+    int comparacao  = valorReceita.compareTo(valorAtualizado);
+
+    if (comparacao > 0) {
+       BigDecimal diferenca = valorReceita.subtract(valorAtualizado);
+       BigDecimal novoSaldo = usuario.getSaldo().subtract(diferenca);
+usuario.setSaldo(novoSaldo);
+
+    } else if (comparacao < 0){
+         BigDecimal diferenca = valorAtualizado.subtract(valorReceita);
+         BigDecimal novoSaldo = usuario.getSaldo().add(diferenca);
+  usuario.setSaldo(novoSaldo);
+    }
+
+    receitaExistente.setDescricao(descricaoAtualizada);
+    receitaExistente.setValor(valorAtualizado);
+
+    receitaRepository.save(receitaExistente);
+}else{
+    throw new ReceitaNaoEncontradaException("Receita não encontrada.");
+}
+            
+    }
+
+    public void excluirReceita(Long usuarioId, Long receitaId) {
+
+        Receita receitaExistente = receitaRepository.findByIdAndUsuarioId(receitaId, usuarioId);
+
+        if (receitaExistente != null) {
+
+            Usuario usuario = receitaExistente.getUsuario();
+            BigDecimal valorReceita = receitaExistente.getValor();
+            BigDecimal novoSaldo = usuario.getSaldo().subtract(valorReceita);
+            usuario.setSaldo(novoSaldo);
+           
+            usuarioRepository.save(usuario);
+            
+            receitaRepository.delete(receitaExistente);
+        } else {
+
+            throw new ReceitaNaoEncontradaException("Receita não encontrada.");
+        }
+    }
+    
+
 }

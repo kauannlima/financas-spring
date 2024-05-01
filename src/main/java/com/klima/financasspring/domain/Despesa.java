@@ -18,7 +18,6 @@ import java.time.LocalDate;
 @Table(name = "despesas")
 public class Despesa {
 
-    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,8 +25,6 @@ public class Despesa {
     private BigDecimal valor;
 
     private String descricao;
-
-    private LocalDate data;
 
     @JsonIgnore
     @ManyToOne

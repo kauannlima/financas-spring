@@ -1,5 +1,6 @@
 package com.klima.financasspring.service;
 
+import com.klima.financasspring.domain.Despesa;
 import com.klima.financasspring.domain.Receita;
 import com.klima.financasspring.domain.Usuario;
 import com.klima.financasspring.dto.UsuarioIdDTO;
@@ -7,6 +8,7 @@ import com.klima.financasspring.dto.UsuarioRequestDTO;
 import com.klima.financasspring.exception.EmailDuplicadoException;
 import com.klima.financasspring.exception.EmailNaoEncontradoException;
 import com.klima.financasspring.exception.SenhaIncorretaException;
+import com.klima.financasspring.exception.UsuarioNaoEncontradoException;
 import com.klima.financasspring.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.exception.ConstraintViolationException;
@@ -14,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -56,4 +60,20 @@ public class UsuarioService {
     public List<Receita> findReceitasByUsuarioId(Long id) {
         return usuarioRepository.findReceitasByUsuarioId(id);
     }
+
+
+    public List<Despesa> findDespesasByUsuarioId(Long id) {
+        return usuarioRepository.findDespesasByUsuarioId(id);
+    }
+
+
+    public BigDecimal getSaldoByUsuarioId(Long id) {
+        Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
+        if (optionalUsuario.isEmpty()) {
+            throw new UsuarioNaoEncontradoException("Usuário não encontrado.");
+        }
+        Usuario usuario = optionalUsuario.get();
+        return usuario.getSaldo();
+    }
+
 }

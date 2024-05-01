@@ -18,7 +18,6 @@ import java.time.LocalDate;
 @Table(name = "receitas")
 public class Receita {
 
-    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,11 +26,10 @@ public class Receita {
 
     private String descricao;
 
-    private LocalDate data;
-
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "usuarios_id")
     private Usuario usuario;
+
 
 }

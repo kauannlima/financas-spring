@@ -2,6 +2,8 @@ package com.klima.financasspring.controller;
 
 import com.klima.financasspring.domain.Despesa;
 import com.klima.financasspring.domain.Receita;
+import com.klima.financasspring.exception.DespesaNaoEncontradaException;
+import com.klima.financasspring.exception.ReceitaNaoEncontradaException;
 import com.klima.financasspring.exception.SaldoInsuficienteException;
 import com.klima.financasspring.exception.UsuarioNaoEncontradoException;
 import com.klima.financasspring.service.DespesaService;
@@ -29,6 +31,28 @@ public class DespesaController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ocorreu um erro ao processar a solicitação");
+        }
+    }
+
+
+     @DeleteMapping("/{usuarioId}/{despesaId}")
+    public ResponseEntity<?> excluirDespesa(@PathVariable Long usuarioId, @PathVariable Long despesaId) {
+        try {
+            despesaService.excluirDespesa(usuarioId, despesaId);
+            return ResponseEntity.ok("Despesa excluída com sucesso!");
+        } catch (DespesaNaoEncontradaException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Despesa não encontrada.");
+        }
+    }
+
+    
+    @PutMapping("/{usuarioId}/{despesaId}")
+    public ResponseEntity<?> atualizarDespesa(@PathVariable Long usuarioId, @PathVariable Long despesaId, @RequestBody Receita despesaAtualizada) {
+        try {
+            despesaService.atualizarDespesa(usuarioId, despesaId, despesaAtualizada);
+            return ResponseEntity.ok("Despesa atualizada com sucesso!");
+        } catch (DespesaNaoEncontradaException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Despesa não encontrada.");
         }
     }
 
